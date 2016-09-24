@@ -505,7 +505,7 @@ public class Updater {
 						}
 
 						URL versionInfo = new URL(
-								"https://github.com/Sarius997/BienenkundeDB/tree/master/BienenkundeDB-java/BienenkundeDB%20Desktop%20Version/src/images/VersionInfo.txt");
+								"https://raw.githubusercontent.com/Sarius997/BienenkundeDB/master/BienenkundeDB-java/BienenkundeDB%20Desktop%20Version/src/images/VersionInfo.txt");
 						BufferedReader inforeader = new BufferedReader(new InputStreamReader(versionInfo.openStream()));
 
 						latestBdbVersion = Integer.parseInt(inforeader.readLine());
