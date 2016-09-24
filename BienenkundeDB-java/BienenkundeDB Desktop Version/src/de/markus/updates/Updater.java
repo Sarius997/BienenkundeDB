@@ -105,7 +105,7 @@ public class Updater {
 				buttons.add(cancelUpdate);
 
 				updateDlg.add(buttons, BorderLayout.SOUTH);
-				updateDlg.setSize(prefSize.width * 2 + 30, prefSize.height * 3);
+				updateDlg.setSize(message.getPreferredSize().width + 30, prefSize.height * 3);
 				updateDlg.setLocation((displaySize.width / 2 - updateDlg.getWidth() / 2),
 						(displaySize.height / 2 - updateDlg.getHeight() / 2));
 			}
@@ -120,7 +120,7 @@ public class Updater {
 				buttons.add(cancelUpdate);
 
 				updateDlg.add(buttons, BorderLayout.SOUTH);
-				updateDlg.setSize(prefSize.width * 2 + 30, prefSize.height * 3);
+				updateDlg.setSize(message.getPreferredSize().width + 30, prefSize.height * 3);
 				updateDlg.setLocation((displaySize.width / 2 - updateDlg.getWidth() / 2),
 						(displaySize.height / 2 - updateDlg.getHeight() / 2));
 			} else {
@@ -140,7 +140,7 @@ public class Updater {
 			}
 		}
 
-		final JFrame download = new JFrame("Datei" + (bothOutdated ? "en werden" : "wird") + "heruntergeladen");
+		final JFrame download = new JFrame("Datei" + (bothOutdated ? "en werden " : " wird ") + "heruntergeladen");
 		download.setResizable(false);
 		download.setSize(300, 150);
 		download.setLocation((displaySize.height / 2 - download.getHeight() / 2),
@@ -378,9 +378,9 @@ public class Updater {
 	private void restart(final boolean onlyJar) {
 		final Dimension displaySize = Toolkit.getDefaultToolkit().getScreenSize();
 		final JFrame frame = new JFrame("Neu Starten");
-		frame.setLayout(new GridLayout(0, 1));
 		frame.setResizable(false);
 		if (isExeInstalled) {
+			frame.setLayout(new GridLayout(0, 2));
 			JButton btnNow = new JButton("Jetzt");
 			btnNow.setToolTipText("Startet das Programm jetzt neu");
 			JButton btnLater = new JButton("Später");
@@ -389,7 +389,7 @@ public class Updater {
 			frame.add(btnNow);
 			frame.add(btnLater);
 
-			frame.setSize(btnLater.getPreferredSize().width * 2 + 30, btnLater.getPreferredSize().height * 2);
+			frame.setSize(btnLater.getPreferredSize().width * 2 + 80, btnLater.getPreferredSize().height * 2);
 			frame.setLocation((displaySize.width / 2 - frame.getWidth() / 2),
 					(displaySize.height / 2 - frame.getHeight() / 2));
 
@@ -427,6 +427,8 @@ public class Updater {
 							}
 						}
 					});
+					
+					dlg.setVisible(true);
 				}
 			});
 			btnLater.addActionListener(new ActionListener() {
@@ -436,6 +438,7 @@ public class Updater {
 				}
 			});
 		} else {
+			frame.setLayout(new GridLayout(0, 1));
 			String pathHelper = "";
 			try {
 				pathHelper = BienenkundeDB.class.getProtectionDomain().getCodeSource().getLocation().toURI()
@@ -446,13 +449,16 @@ public class Updater {
 			pathHelper = pathHelper.substring(1);
 			pathHelper = pathHelper.replace("/", "\\");
 			pathHelper = pathHelper.replace(".jar", "_new.jar");
-			String jarName = pathHelper.split("\\\\")[pathHelper.length() - 1];
+			String[] path = pathHelper.split("\\\\");
+			String jarName = path[path.length - 1];
 			
 			JLabel msg1 = new JLabel("Sie verwenden die Version ohne Launcher.");
 			JLabel msg2 = new JLabel("Starten Sie nun " + jarName);
 			JLabel msg3 = new JLabel("um die neue Version zu verwenden.");
 			JLabel msg4 = new JLabel("Die alte Version kann nun gelöscht und");
 			JLabel msg5 = new JLabel("die neue Datei umbenannt werden.");
+			JLabel msg6 = new JLabel("Wenn die neue Datei nicht umbenannt wird, können");
+			JLabel msg7 = new JLabel("Updates nicht mehr automatisch heruntergeladen werden.");
 			JButton btnOk = new JButton("OK");
 
 			frame.add(msg1);
@@ -460,9 +466,11 @@ public class Updater {
 			frame.add(msg3);
 			frame.add(msg4);
 			frame.add(msg5);
+			frame.add(msg6);
+			frame.add(msg7);
 			frame.add(btnOk);
 
-			frame.setSize(msg1.getPreferredSize().width + 30, btnOk.getPreferredSize().height * 7);
+			frame.setSize(msg7.getPreferredSize().width + 30, btnOk.getPreferredSize().height * 9);
 			frame.setLocation((displaySize.width / 2 - frame.getWidth() / 2),
 					(displaySize.height / 2 - frame.getHeight() / 2));
 
@@ -580,7 +588,7 @@ public class Updater {
 
 					if (!newBdbVer.exists())
 						return UpdateCodes.downloadFailed;
-					String actualSha512Hash = getSha512CheckSum(installPathJar);
+					String actualSha512Hash = getSha512CheckSum(pathToFiles + "\\BienenkundeDB_neu.jar");
 					if (actualSha512Hash.compareTo(getBdbSha512Hash()) == 0) {
 						// File del = new File(installPathJar + ".old");
 						// del.delete();
