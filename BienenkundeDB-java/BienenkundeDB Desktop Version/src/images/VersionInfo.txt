@@ -1,6 +1,6 @@
+2
 1
-1
-https://github.com/Sarius997/BienenkundeDB/releases/download/v1.0pre-release/BienenkundeDB.jar
-https://github.com/Sarius997/BienenkundeDB/releases/download/v1.0pre-release/BienenkundeDB.Launcher.exe
-e61726457c8df1c75f20b78069067b2d6ceb54115cf27fb331ae7ff8b70d54c26f6faa9cb4549c5f0ab560b7a6c75e7febe8808f1b24a843c9ea580999b932a7
+https://github.com/Sarius997/BienenkundeDB/releases/download/v1.0/BienenkundeDB.jar
+https://github.com/Sarius997/BienenkundeDB/releases/download/v1.0/BienenkundeDB.Launcher.exe
+6fba264d21f599f7ce9514073bc71631e966fd9007d097a0b65646866fa9d2b728480af2a913d2863f9a7593f8057624cbfa8fbb15a851ecf7ffa5d9a2d63615
 5332fc2769f679f3445373c2b98c8910509bb644590575578afd768928036d18423c32e8566c91ee6d19e5bb1d98ad9d9918cff19da9e792122327b84a652852
