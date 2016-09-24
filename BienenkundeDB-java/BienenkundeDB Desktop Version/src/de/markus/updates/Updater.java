@@ -441,7 +441,6 @@ public class Updater {
 				pathHelper = BienenkundeDB.class.getProtectionDomain().getCodeSource().getLocation().toURI()
 						.getPath();
 			} catch (URISyntaxException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			pathHelper = pathHelper.substring(1);
@@ -506,7 +505,7 @@ public class Updater {
 						}
 
 						URL versionInfo = new URL(
-								"https://raw.githubusercontent.com/00-Evan/shattered-pixel-dungeon-gdx/master/desktop/VersionInfo.txt");
+								"https://github.com/Sarius997/BienenkundeDB/tree/master/BienenkundeDB-java/BienenkundeDB%20Desktop%20Version/src/images/VersionInfo.txt");
 						BufferedReader inforeader = new BufferedReader(new InputStreamReader(versionInfo.openStream()));
 
 						latestBdbVersion = Integer.parseInt(inforeader.readLine());
