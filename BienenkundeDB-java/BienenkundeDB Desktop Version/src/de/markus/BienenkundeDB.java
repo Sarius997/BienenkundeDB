@@ -65,9 +65,12 @@ public class BienenkundeDB {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+			
 		System.out.println();
 		System.out.println(dateTime() + "Initializing app :)");
 		System.out.println(dateTime() + "Logging initialized");
+		if (LAUNCHER_VERSION_NUMBER != null)
+			System.out.println(dateTime() + "App started from launcher with version number " + LAUNCHER_VERSION_NUMBER);
 		// propHandler = new PropertiesHandler();
 		startWindow = new startWindow();
 		setVisible(startWindow.window, true);
