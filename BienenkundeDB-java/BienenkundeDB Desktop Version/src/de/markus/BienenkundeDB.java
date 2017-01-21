@@ -16,12 +16,14 @@ import de.markus.updates.Updater;
 public class BienenkundeDB {
 	public static final String VERSION = "1.0a";
 	public static final String VERSION_NUMBER = "3";
+
+	public static String LAUNCHER_VERSION_NUMBER = null;
 	// private static PropertiesHandler propHandler = new PropertiesHandler();
 	public static startWindow startWindow;
-	
+
 	public static void main(String[] args) {
-		if(args != null && args.length != 0){
-			if(args.length == 1){
+		if (args != null && args.length != 0) {
+			if (args.length == 1) {
 				switch (args[0]) {
 				case "getVersionInfo":
 					System.out.print(getVersionInfo());
@@ -33,6 +35,13 @@ public class BienenkundeDB {
 				default:
 					System.out.println("Invalid Arguments!");
 					break;
+				}
+			} else if (args.length == 2) {
+				if (args[0].equalsIgnoreCase("launcherVersion")) {
+					LAUNCHER_VERSION_NUMBER = args[1];
+					launchBienenkundeDB();
+				} else {
+					System.out.println("Invalid Arguments!");
 				}
 			} else {
 				System.out.println("Invalid Arguments!");
@@ -68,7 +77,8 @@ public class BienenkundeDB {
 	public static void setVisible(JFrame window, boolean visible) {
 		if (window != null) {
 			window.setVisible(visible);
-			System.out.println("Inner Panel Size: x=" + window.getContentPane().getWidth() + " y=" + window.getContentPane().getHeight());
+			System.out.println("Inner Panel Size: x=" + window.getContentPane().getWidth() + " y="
+					+ window.getContentPane().getHeight());
 		}
 	}
 
@@ -79,16 +89,16 @@ public class BienenkundeDB {
 
 		return dateString + " :: ";
 	}
-	
-	public static String date(){
+
+	public static String date() {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		Date date = new Date();
 		String dateString = dateFormat.format(date);
-		
+
 		return dateString;
 	}
-	
-	private static String getVersionInfo(){
+
+	private static String getVersionInfo() {
 		return "name=" + VERSION + " number=" + VERSION_NUMBER;
 	}
 }

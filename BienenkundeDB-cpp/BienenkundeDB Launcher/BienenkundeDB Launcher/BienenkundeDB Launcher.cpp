@@ -71,7 +71,7 @@ int launchBDB(bool updated)
 
 		// Create the cmd statement for launching the jar file
 		std::wstring w_userDirStr(userDir);
-		std::wstring concatted_stdstr = L" -jar " + w_userDirStr + L"\\BienenkundeDB\\BienenkundeDB.jar";
+		std::wstring concatted_stdstr = L" -jar " + w_userDirStr + L"\\BienenkundeDB\\BienenkundeDB.jar" + L" launcherVersion " + std::to_wstring(versionNumber);
 		LPWSTR cmd = const_cast<LPWSTR>(concatted_stdstr.c_str());
 
 		// Start the child process.

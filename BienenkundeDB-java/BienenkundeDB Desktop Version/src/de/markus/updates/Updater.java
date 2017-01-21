@@ -24,7 +24,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
 
 import org.apache.commons.io.FileUtils;
@@ -125,55 +124,64 @@ public class Updater {
 						(displaySize.height / 2 - updateDlg.getHeight() / 2));
 			} else {
 				if (calledByUser) {
-					updateDlg.setTitle("Es ist kein Update verfügbar");
+					// updateDlg.setTitle("Es ist kein Update verfügbar");
 					updateDlg.setLayout(new GridLayout(0, 1));
-					message.setText("Ihre Version ist bereits aktuell oder es kann");
-					JLabel lab = new JLabel("gerade nicht auf das Netzwerk zugegriffen werden.");
+					message.setText("Ihre Version ist bereits aktuell");
+					// JLabel lab = new JLabel("gerade nicht auf das Netzwerk
+					// zugegriffen werden.");
 
 					updateDlg.add(message);
-					updateDlg.add(lab);
+					// updateDlg.add(lab);
 					updateDlg.add(btnOk);
-					updateDlg.setSize(lab.getPreferredSize().width + 30, btnOk.getPreferredSize().height * 4);
+					updateDlg.setSize(message.getPreferredSize().width + 20, btnOk.getPreferredSize().height * 4);
 					updateDlg.setLocation((displaySize.width / 2 - updateDlg.getWidth() / 2),
 							(displaySize.height / 2 - updateDlg.getHeight() / 2));
 				}
 			}
 		}
 
-		final JFrame download = new JFrame("Datei" + (bothOutdated ? "en werden " : " wird ") + "heruntergeladen");
-		download.setResizable(false);
-		download.setSize(300, 150);
-		download.setLocation((displaySize.height / 2 - download.getHeight() / 2),
-				(displaySize.width / 2 - download.getWidth() / 2));
-		final JProgressBar downBar = new JProgressBar();
-		downBar.setMinimum(0);
-		downBar.setStringPainted(true);
-
-		download.add(downBar);
+		// final JFrame download = new JFrame("Datei" + (bothOutdated ? "en
+		// werden " : " wird ") + "heruntergeladen");
+		// download.setResizable(false);
+		// download.setSize(300, 150);
+		// download.setLocation((displaySize.height / 2 - download.getHeight() /
+		// 2),
+		// (displaySize.width / 2 - download.getWidth() / 2));
+		// final JProgressBar downBar = new JProgressBar();
+		// downBar.setSize(250, 50);
+		// downBar.setMinimum(0);
+		// downBar.setMaximum(255);
+		// downBar.setStringPainted(true);
+		//
+		// download.add(downBar);
 
 		bothUpdate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateDlg.setVisible(false);
-				int maxBdb = 0;
-				int maxLauncher = 0;
-				try {
-					maxBdb = new URL(updateUrlBDB).openConnection().getContentLength();
-					maxLauncher = new URL(updateUrlLauncher).openConnection().getContentLength();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				downBar.setMaximum(maxBdb + maxLauncher);
-				downBar.setString("BienenkundeDB.jar");
-				download.setVisible(true);
+				// int maxBdb = 0;
+				// int maxLauncher = 0;
+				// try {
+				// maxBdb = new
+				// URL(updateUrlBDB).openConnection().getContentLength() / 1024;
+				// maxLauncher = new
+				// URL(updateUrlLauncher).openConnection().getContentLength() /
+				// 1024;
+				// } catch (IOException e1) {
+				// e1.printStackTrace();
+				// }
+				// downBar.setMaximum(maxBdb + maxLauncher);
+				// downBar.setString("BienenkundeDB.jar");
+				// download.add(downBar);
+				// download.setVisible(true);
 				UpdateCodes bdbUpdate = downloadBdbUpdate();
-				downBar.setValue(maxBdb);
-				downBar.setString("BienenkundeDB Launcher.exe");
+				// downBar.setValue(maxBdb);
+				// downBar.setString("BienenkundeDB Launcher.exe");
 				UpdateCodes launcherUpdate = downloadLauncherUpdate();
-				downBar.setValue(maxBdb + maxLauncher);
-				downBar.setString("fertig");
+				// downBar.setValue(maxBdb + maxLauncher);
+				// downBar.setString("fertig");
 
-				download.setVisible(false);
+				// download.setVisible(false);
 
 				handleUpdateCodes(bdbUpdate, true, true);
 				handleUpdateCodes(launcherUpdate, false, false);
@@ -183,20 +191,24 @@ public class Updater {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateDlg.setVisible(false);
-				int maxBdb = 0;
-				try {
-					maxBdb = new URL(updateUrlBDB).openConnection().getContentLength();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				downBar.setMaximum(maxBdb);
-				downBar.setString("BienenkundeDB.jar");
-				download.setVisible(true);
+				// int maxBdb = 0;
+				// try {
+				// maxBdb = new
+				// URL(updateUrlBDB).openConnection().getContentLength() / 1024;
+				// System.out.println(maxBdb);
+				// } catch (IOException e1) {
+				// e1.printStackTrace();
+				// }
+				// downBar.setMaximum(maxBdb);
+				// downBar.setString("BienenkundeDB.jar");
+				// download.add(downBar);
+				// downBar.setVisible(true);
+				// download.setVisible(true);
 				UpdateCodes bdbUpdate = downloadBdbUpdate();
-				downBar.setValue(maxBdb);
-				downBar.setString("fertig");
+				// downBar.setValue(maxBdb);
+				// downBar.setString("fertig");
 
-				download.setVisible(false);
+				// download.setVisible(false);
 
 				handleUpdateCodes(bdbUpdate, true, false);
 			}
@@ -205,20 +217,23 @@ public class Updater {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateDlg.setVisible(false);
-				int maxLauncher = 0;
-				try {
-					maxLauncher = new URL(updateUrlLauncher).openConnection().getContentLength();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				downBar.setMaximum(maxLauncher);
-				downBar.setString("BienenkundeDB Launcher.exe");
-				download.setVisible(true);
+				// int maxLauncher = 0;
+				// try {
+				// maxLauncher = new
+				// URL(updateUrlLauncher).openConnection().getContentLength() /
+				// 1024;
+				// } catch (IOException e1) {
+				// e1.printStackTrace();
+				// }
+				// downBar.setMaximum(maxLauncher);
+				// downBar.setString("BienenkundeDB Launcher.exe");
+				// download.add(downBar);
+				// download.setVisible(true);
 				UpdateCodes launcherUpdateCodes = downloadLauncherUpdate();
-				downBar.setValue(maxLauncher);
-				downBar.setString("fertig");
+				// downBar.setValue(maxLauncher);
+				// downBar.setString("fertig");
 
-				download.setVisible(false);
+				// download.setVisible(false);
 
 				handleUpdateCodes(launcherUpdateCodes, false, false);
 			}
@@ -427,7 +442,7 @@ public class Updater {
 							}
 						}
 					});
-					
+
 					dlg.setVisible(true);
 				}
 			});
@@ -441,8 +456,7 @@ public class Updater {
 			frame.setLayout(new GridLayout(0, 1));
 			String pathHelper = "";
 			try {
-				pathHelper = BienenkundeDB.class.getProtectionDomain().getCodeSource().getLocation().toURI()
-						.getPath();
+				pathHelper = BienenkundeDB.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			} catch (URISyntaxException e1) {
 				e1.printStackTrace();
 			}
@@ -451,7 +465,7 @@ public class Updater {
 			pathHelper = pathHelper.replace(".jar", "_new.jar");
 			String[] path = pathHelper.split("\\\\");
 			String jarName = path[path.length - 1];
-			
+
 			JLabel msg1 = new JLabel("Sie verwenden die Version ohne Launcher.");
 			JLabel msg2 = new JLabel("Starten Sie nun " + jarName);
 			JLabel msg3 = new JLabel("um die neue Version zu verwenden.");
@@ -497,17 +511,30 @@ public class Updater {
 
 						File launcherFile = new File(installPathExe);
 						isExeInstalled = launcherFile.exists();
-						if (isExeInstalled) {
+
+						if (BienenkundeDB.LAUNCHER_VERSION_NUMBER != null) {
+							try {
+								currentLauncherVersion = Integer.parseInt(BienenkundeDB.LAUNCHER_VERSION_NUMBER);
+							} catch (NumberFormatException e) {
+								e.printStackTrace();
+							}
+						}
+
+						if (isExeInstalled && currentLauncherVersion == 0) {
 							@SuppressWarnings("unused")
 							Process p = Runtime.getRuntime().exec(installPathExe + " getVersionInfo");
-							Thread.sleep(2000);
+							Thread.sleep(4000);
 							File infoFile = new File(pathToFiles + "\\launcherVerInfo.txt");
 							if (infoFile.exists()) {
 								FileInputStream fis = new FileInputStream(infoFile);
 								byte[] data = new byte[(int) infoFile.length()];
 								fis.read(data);
 								fis.close();
-								currentLauncherVersion = Integer.parseInt(new String(data, "UTF-8"));
+								try {
+									currentLauncherVersion = Integer.parseInt(new String(data, "UTF-8"));
+								} catch (NumberFormatException e) {
+									e.printStackTrace();
+								}
 								infoFile.delete();
 							}
 						}
