@@ -19,6 +19,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -29,6 +30,7 @@ import javax.swing.JSeparator;
 import org.apache.commons.io.FileUtils;
 
 import de.markus.BienenkundeDB;
+import de.markus.gui.startWindow;
 
 public class Updater {
 
@@ -62,6 +64,9 @@ public class Updater {
 		boolean bothOutdated = isBdbUpdateAvailable() && isLauncherUpdateAvailable();
 		final JFrame updateDlg = new JFrame();
 		updateDlg.setResizable(false);
+
+		updateDlg.setIconImage(new ImageIcon(startWindow.propHandler.getIcon()).getImage());
+		
 		JPanel buttons = new JPanel();
 		JLabel message = new JLabel("Wollen Sie " + (bothOutdated ? "die Updates" : "das Update")
 				+ " herunterladen? Alte Versionen werden gelöscht!");
@@ -310,6 +315,9 @@ public class Updater {
 			// }
 			final JFrame frame = new JFrame("Das Update ist Fehlgeschlagen");
 			frame.setResizable(false);
+
+			frame.setIconImage(new ImageIcon(startWindow.propHandler.getIcon()).getImage());
+			
 			JLabel msg1 = new JLabel("Das Update wurde rückgängig gemacht.");
 			JLabel msg2 = new JLabel("Bitte versuchen Sie es später erneut oder");
 			JLabel msg3 = new JLabel("laden sie sich die Datei hier herunter:");
@@ -393,7 +401,11 @@ public class Updater {
 	private void restart(final boolean onlyJar) {
 		final Dimension displaySize = Toolkit.getDefaultToolkit().getScreenSize();
 		final JFrame frame = new JFrame("Neu Starten");
+
 		frame.setResizable(false);
+		
+		frame.setIconImage(new ImageIcon(startWindow.propHandler.getIcon()).getImage());
+		
 		if (isExeInstalled) {
 			frame.setLayout(new GridLayout(0, 2));
 			JButton btnNow = new JButton("Jetzt");
@@ -412,6 +424,8 @@ public class Updater {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JDialog dlg = new JDialog(frame, "Achtung");
+					
+					
 					dlg.setLayout(new GridLayout(0, 1));
 					dlg.setResizable(false);
 					JLabel warn1 = new JLabel("Speichern Sie ihre Änderungen vor dem Neustart,");
