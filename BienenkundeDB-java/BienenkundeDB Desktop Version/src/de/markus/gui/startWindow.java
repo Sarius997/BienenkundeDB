@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
@@ -47,7 +47,7 @@ public class startWindow {
 	public Updater updater = new Updater();
 
 	public EntryHandler handler = new EntryHandler();
-	public PropertiesHandler propHandler = new PropertiesHandler();
+	public static PropertiesHandler propHandler = new PropertiesHandler();
 
 	public JFrame window = new JFrame("BienenkundeDB");
 	
@@ -105,13 +105,12 @@ public class startWindow {
 
 	private ButtonGroup radioGroup = new ButtonGroup();
 
-	@SuppressWarnings("deprecation")
 	public startWindow() {
-		Date today = new Date(System.currentTimeMillis());
-		int date = today.getDate();
-		int month = today.getMonth() + 1;
-		int year = today.getYear() + 1900;
-		String todayStr = "" + date + "." + ((month) < 10 ? "0" + month : month) + "." + year + ", ";
+		Calendar cal = Calendar.getInstance();
+		int date = cal.get(Calendar.DAY_OF_MONTH);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int year = cal.get(Calendar.YEAR);
+		String todayStr = String.format("%d." + (month < 10 ? "0" : "") + "%d.%d, ", date, month, year);
 		datumNameText.setText(todayStr);
 
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -466,30 +465,7 @@ public class startWindow {
 	private void resetFields() {
 		Object[] entryToLoad = new FakeEntry().getData();
 
-		datumNameText.setText((String) entryToLoad[0]);
-		ruhigCB.setSelected((boolean) entryToLoad[1]);
-		geschaeftigCB.setSelected((boolean) entryToLoad[2]);
-		gereiztCB.setSelected((boolean) entryToLoad[3]);
-		aggressivCB.setSelected((boolean) entryToLoad[4]);
-		honigOffenCB.setSelected((boolean) entryToLoad[5]);
-		honigVerdeckeltCB.setSelected((boolean) entryToLoad[6]);
-		pollenImStockCB.setSelected((boolean) entryToLoad[7]);
-		pollenEintragenCB.setSelected((boolean) entryToLoad[8]);
-		verkrueppelteBienenCB.setSelected((boolean) entryToLoad[9]);
-		drohnenCB.setSelected((boolean) entryToLoad[10]);
-		brutMaennlichCB.setSelected((boolean) entryToLoad[11]);
-		brutWeiblichCB.setSelected((boolean) entryToLoad[12]);
-		eierCB.setSelected((boolean) entryToLoad[13]);
-		schwarmzellenCB.setSelected((boolean) entryToLoad[14]);
-		nachschaffungszellenCB.setSelected((boolean) entryToLoad[15]);
-		koenigigJaRad.setSelected((boolean) entryToLoad[16]);
-		koeniginNeinRad.setSelected((boolean) entryToLoad[17]);
-		koeniginVielleichtRad.setSelected((boolean) entryToLoad[18]);
-		koeniginJahrText.setText((String) entryToLoad[19]);
-		raehmchenZahlText.setText((String) entryToLoad[20]);
-		raehmchenErweitertText.setText((String) entryToLoad[21]);
-		leereWabenCB.setSelected((boolean) entryToLoad[22]);
-		sonstigeWabenText.setText((String) entryToLoad[23]);
+		loadEntry(entryToLoad);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -536,30 +512,7 @@ public class startWindow {
 					Entry entryToDisplay = (Entry) savedEntrys[returnValue];
 					Object[] entryToLoad = entryToDisplay.getData();
 
-					datumNameText.setText((String) entryToLoad[0]);
-					ruhigCB.setSelected((boolean) entryToLoad[1]);
-					geschaeftigCB.setSelected((boolean) entryToLoad[2]);
-					gereiztCB.setSelected((boolean) entryToLoad[3]);
-					aggressivCB.setSelected((boolean) entryToLoad[4]);
-					honigOffenCB.setSelected((boolean) entryToLoad[5]);
-					honigVerdeckeltCB.setSelected((boolean) entryToLoad[6]);
-					pollenImStockCB.setSelected((boolean) entryToLoad[7]);
-					pollenEintragenCB.setSelected((boolean) entryToLoad[8]);
-					verkrueppelteBienenCB.setSelected((boolean) entryToLoad[9]);
-					drohnenCB.setSelected((boolean) entryToLoad[10]);
-					brutMaennlichCB.setSelected((boolean) entryToLoad[11]);
-					brutWeiblichCB.setSelected((boolean) entryToLoad[12]);
-					eierCB.setSelected((boolean) entryToLoad[13]);
-					schwarmzellenCB.setSelected((boolean) entryToLoad[14]);
-					nachschaffungszellenCB.setSelected((boolean) entryToLoad[15]);
-					koenigigJaRad.setSelected((boolean) entryToLoad[16]);
-					koeniginNeinRad.setSelected((boolean) entryToLoad[17]);
-					koeniginVielleichtRad.setSelected((boolean) entryToLoad[18]);
-					koeniginJahrText.setText((String) entryToLoad[19]);
-					raehmchenZahlText.setText((String) entryToLoad[20]);
-					raehmchenErweitertText.setText((String) entryToLoad[21]);
-					leereWabenCB.setSelected((boolean) entryToLoad[22]);
-					sonstigeWabenText.setText((String) entryToLoad[23]);
+					loadEntry(entryToLoad);
 
 					System.out.println(BienenkundeDB.dateTime() + "Loading data with name: \"" + entryToLoad[0]
 							+ "\" and timestamp: " + entryToLoad[24]);
@@ -579,6 +532,34 @@ public class startWindow {
 
 		windowSelectEntry.show();
 
+	}
+	
+	
+	private void loadEntry(Object[] entryToLoad){
+		datumNameText.setText((String) entryToLoad[0]);
+		ruhigCB.setSelected((boolean) entryToLoad[1]);
+		geschaeftigCB.setSelected((boolean) entryToLoad[2]);
+		gereiztCB.setSelected((boolean) entryToLoad[3]);
+		aggressivCB.setSelected((boolean) entryToLoad[4]);
+		honigOffenCB.setSelected((boolean) entryToLoad[5]);
+		honigVerdeckeltCB.setSelected((boolean) entryToLoad[6]);
+		pollenImStockCB.setSelected((boolean) entryToLoad[7]);
+		pollenEintragenCB.setSelected((boolean) entryToLoad[8]);
+		verkrueppelteBienenCB.setSelected((boolean) entryToLoad[9]);
+		drohnenCB.setSelected((boolean) entryToLoad[10]);
+		brutMaennlichCB.setSelected((boolean) entryToLoad[11]);
+		brutWeiblichCB.setSelected((boolean) entryToLoad[12]);
+		eierCB.setSelected((boolean) entryToLoad[13]);
+		schwarmzellenCB.setSelected((boolean) entryToLoad[14]);
+		nachschaffungszellenCB.setSelected((boolean) entryToLoad[15]);
+		koenigigJaRad.setSelected((boolean) entryToLoad[16]);
+		koeniginNeinRad.setSelected((boolean) entryToLoad[17]);
+		koeniginVielleichtRad.setSelected((boolean) entryToLoad[18]);
+		koeniginJahrText.setText((String) entryToLoad[19]);
+		raehmchenZahlText.setText((String) entryToLoad[20]);
+		raehmchenErweitertText.setText((String) entryToLoad[21]);
+		leereWabenCB.setSelected((boolean) entryToLoad[22]);
+		sonstigeWabenText.setText((String) entryToLoad[23]);
 	}
 
 	private void setTransparent() {
