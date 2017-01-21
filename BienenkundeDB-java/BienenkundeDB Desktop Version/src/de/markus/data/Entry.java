@@ -4,6 +4,7 @@ import de.markus.BienenkundeDB;
 
 public class Entry {
 	private Object[] data = new Object[25];
+	private int versionNumber = Integer.parseInt(BienenkundeDB.VERSION_NUMBER);
 
 	public Entry(Object[] newData) {
 		if (newData.length == data.length) {
@@ -23,5 +24,13 @@ public class Entry {
 
 	public Object[] getData() {
 		return data;
+	}
+
+	public int getVersionNumber() {
+		return versionNumber;
+	}
+
+	public void setVersionNumber(int versionNumber) {
+		this.versionNumber = versionNumber;
 	}
 }
