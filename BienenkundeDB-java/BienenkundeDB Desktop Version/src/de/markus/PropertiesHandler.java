@@ -15,12 +15,14 @@ public class PropertiesHandler {
 	private final String BackgroundName = "background.jpg";
 	private final String SaveFileName = "saveData.xml";
 	private final String SettingsFileName = "settings.prop";
+	private final String SaveSubDirectory = "/Saved/";
 
 	private File outputFile = new File(ResourcePath + "/Logging/log " + BienenkundeDB.date() + ".txt");
 	private File settingsFile = new File(ResourcePath + SettingsFileName);
 
 	private Properties props = new Properties();
 
+	private static final String propLastUsedVersion = "lastVersion";
 	private static final String propMainWndX = "mainWndPosX";
 	private static final String propMainWndY = "mainWndPosY";
 	private static final String propInfoWndX = "infoWndPosX";
@@ -67,6 +69,30 @@ public class PropertiesHandler {
 		return ResourcePath;
 	}
 
+	public String getSaveSubDirectory() {
+		return ResourcePath + SaveSubDirectory;
+	}
+	
+	public void setLastVersion(String lastVersion) {
+		try {
+			props.load(new FileInputStream(settingsFile));
+			props.setProperty(propLastUsedVersion, lastVersion);
+			props.store(new FileOutputStream(settingsFile), "Please do not modify this");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setLastVersionToCurrent() {
+		try {
+			props.load(new FileInputStream(settingsFile));
+			props.setProperty(propLastUsedVersion, BienenkundeDB.VERSION_NUMBER);
+			props.store(new FileOutputStream(settingsFile), "Please do not modify this");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void setMainWndPos(Point p) {
 		try {
 			props.load(new FileInputStream(settingsFile));
@@ -98,6 +124,16 @@ public class PropertiesHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getLastVersion() {
+		try {
+			props.load(new FileInputStream(settingsFile));
+			return props.getProperty(propLastUsedVersion, "0");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "0";
 	}
 
 	public Point getMainWndPos() {
@@ -142,7 +178,7 @@ public class PropertiesHandler {
 	public void setMainWndSize(int width, int height) {
 		try {
 			props.load(new FileInputStream(settingsFile));
-//			props.setProperty(propMainWndWdth, "" + width);
+			// props.setProperty(propMainWndWdth, "" + width);
 			props.setProperty(propMainWndHght, "" + height);
 			props.store(new FileOutputStream(settingsFile), "Please do not modify this");
 		} catch (IOException e) {
@@ -172,12 +208,12 @@ public class PropertiesHandler {
 	}
 
 	public int getMainWndWdth() {
-//		try {
-//			props.load(new FileInputStream(settingsFile));
-//			return Integer.parseInt(props.getProperty(propMainWndWdth, "500"));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// props.load(new FileInputStream(settingsFile));
+		// return Integer.parseInt(props.getProperty(propMainWndWdth, "500"));
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		return 500;
 	}
 
